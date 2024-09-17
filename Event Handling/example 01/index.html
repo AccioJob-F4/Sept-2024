@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Button Click Example</title>
+  </head>
+  <body>
+    <button id="myBtn">Click me</button>
+
+    <script>
+      const button = document.getElementById("myBtn");
+
+      button.addEventListener("click", (event) => {
+        console.log("First listener");
+        console.log(event.type, event.target, event.clientX);
+      });
+
+      //   button.addEventListener("click", () => {
+      //     console.log("Second listener");
+      //   });
+    </script>
+  </body>
+</html>

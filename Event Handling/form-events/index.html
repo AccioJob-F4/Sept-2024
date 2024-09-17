@@ -1,0 +1,37 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <input
+        type="text"
+        placeholder="Enter name"
+        name="input-box-name"
+        required
+      />
+      <input
+        type="number"
+        placeholder="Enter age"
+        name="input-box-age"
+        required
+      />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("myForm");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        console.log("Name: ", formData.get("input-box-name"));
+        console.log("Age: ", formData.get("input-box-age"));
+      });
+    </script>
+  </body>
+</html>
