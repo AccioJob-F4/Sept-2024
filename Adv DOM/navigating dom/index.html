@@ -1,0 +1,57 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>DOM traversal</h2>
+
+    <ul id="list">
+      <li class="highlight">Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+
+    <button id="highlightSibling">Hightlight Next Sibling</button>
+
+    <script>
+      //   let firstItem = document.getElementsByTagName("li")[0];
+      //   let nextSibling;
+      //   document
+      //     .getElementById("highlightSibling")
+      //     .addEventListener("click", () => {
+      //       nextSibling = firstItem.nextElementSibling;
+      //       if (nextSibling) {
+      //         nextSibling.classList.toggle("highlight");
+      //         firstItem.classList.toggle("highlight");
+      //         firstItem = nextSibling;
+      //       }
+      //     });
+
+      let lis = document.getElementsByTagName("li");
+      let currActive = 0;
+      document
+        .getElementById("highlightSibling")
+        .addEventListener("click", () => {
+          if (currActive === lis.length) {
+            currActive = 0;
+          }
+          currActive++;
+          if (currActive < lis.length) {
+            lis[currActive].classList.toggle("highlight");
+            if (currActive !== 0) {
+              lis[currActive - 1].classList.toggle("highlight");
+            }
+          }
+        });
+    </script>
+  </body>
+</html>

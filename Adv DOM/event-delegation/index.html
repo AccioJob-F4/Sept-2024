@@ -1,0 +1,55 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .item {
+        padding: 10px;
+        margin: 5px;
+        background-color: dodgerblue;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Task</h2>
+
+    <div id="taskList">
+      <div class="item">Task 1</div>
+      <div class="item">Task 2</div>
+      <!-- <div class="item-new">sk</div> -->
+    </div>
+
+    <button id="addTask">Add Task</button>
+
+    <script>
+      let taskCount = 2;
+
+      document.getElementById("taskList").addEventListener("click", (event) => {
+        if (event.target && event.target.classList.contains("item")) {
+          console.log(
+            "🚀 ~ document.getElementById ~ event.target.classList:",
+            event.target.classList
+          );
+          console.log(
+            "🚀 ~ document.getElementById ~ event.target:",
+            event.target
+          );
+          alert(event.target.textContent + "clicked");
+        }
+      });
+
+      document.getElementById("addTask").addEventListener("click", () => {
+        taskCount++;
+
+        const newTask = document.createElement("div");
+        newTask.textContent = "Task " + taskCount;
+        newTask.classList.add("item");
+
+        document.getElementById("taskList").appendChild(newTask);
+      });
+    </script>
+  </body>
+</html>

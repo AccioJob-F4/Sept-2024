@@ -1,0 +1,25 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="trigger">Trigger Custom Event</button>
+
+    <p id="log"></p>
+
+    <script>
+      const customEvent = new Event("divyansh");
+
+      document.addEventListener("divyansh", () => {
+        document.getElementById("log").textContent = "Custom Even Executed";
+      });
+
+      document.getElementById("trigger").addEventListener("click", () => {
+        document.dispatchEvent(customEvent);
+      });
+    </script>
+  </body>
+</html>

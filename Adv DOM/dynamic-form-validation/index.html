@@ -1,0 +1,87 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Form Validation</h2>
+
+    <form id="myForm">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" placeholder="Enter your name" />
+      <span id="nameError" class="error"></span><br /><br />
+
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        name="email"
+        id="email"
+        placeholder="Enter your email"
+      />
+      <span id="emailError" class="error"></span><br /><br />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <p id="formMessage"></p>
+
+    <script>
+      const form = document.getElementById("myForm");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let isValid = true;
+
+        const formdata = new FormData(form);
+        const name = formdata.get("name");
+        console.log("🚀 ~ form.addEventListener ~ name:", name);
+        const email = formdata.get("email");
+        console.log("🚀 ~ form.addEventListener ~ email:", email);
+
+        if (name === "") {
+          isValid = false;
+          document.getElementById(
+            "nameError"
+          ).textContent = `Name is a required field. It can't be empty.`;
+        } else {
+          document.getElementById("nameError").textContent = "";
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+          isValid = false;
+          document.getElementById(
+            "emailError"
+          ).textContent = `Email is invalid`;
+        } else {
+          document.getElementById("emailError").textContent = "";
+        }
+
+        if (isValid) {
+          document.getElementById("formMessage").textContent =
+            "FORM SUBMITTED SUCCESSFULLY";
+
+          document.getElementById("formMessage").className = "success";
+        } else {
+          document.getElementById("formMessage").textContent =
+            "Please fix the errors above";
+
+          document.getElementById("formMessage").className = "error";
+        }
+      });
+    </script>
+  </body>
+</html>
