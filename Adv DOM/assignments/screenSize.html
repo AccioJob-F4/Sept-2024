@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      /*  your css code here. If applicable */
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #sizeInfo {
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- the entire body must be written by student -->
+    <div id="sizeInfo"></div>
+
+    <script>
+      //your JS code here. If required.
+      function updateWindowSize() {
+        const sizeInfoDiv = document.getElementById("sizeInfo");
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        sizeInfoDiv.innerHTML = `<h1>Width: ${width} and Height: ${height}</h1>`;
+      }
+
+      // Initial call to display the size when the page is first loaded
+      updateWindowSize();
+
+      // Update the size when the window is resized
+      window.addEventListener("resize", updateWindowSize);
+    </script>
+  </body>
+</html>

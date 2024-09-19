@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I'm not a robot</title>
+    <style>
+      .img1 {
+        content: url("https://picsum.photos/id/237/200/300");
+      }
+
+      .img2 {
+        content: url("https://picsum.photos/seed/picsum/200/300");
+      }
+
+      .img3 {
+        content: url("https://picsum.photos/200/300?grayscale");
+      }
+      .img4 {
+        content: url("https://picsum.photos/200/300/");
+      }
+      .img5 {
+        content: url("https://picsum.photos/200/300.jpg");
+      }
+
+      img {
+        margin: 10px;
+        border: 5px solid #555;
+        width: 10%;
+      }
+
+      .flex {
+        display: flex;
+        justify-content: center;
+      }
+
+      .selected {
+        border: 5px solid rgb(0, 195, 255);
+      }
+
+      p {
+        text-align: center;
+      }
+
+      button {
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <!-- solution start -->
+
+      <!-- solution end -->
+    </main>
+    <script>
+      //your code here
+      document.addEventListener("DOMContentLoaded", () => {
+        const imageClasses = ["img1", "img2", "img3", "img4", "img5"];
+        let selectedImages = [];
+        let repeatedImageIndex = Math.floor(
+          Math.random() * imageClasses.length
+        );
+        let images = [...imageClasses];
+
+        // Repeat one random image
+        images.push(imageClasses[repeatedImageIndex]);
+
+        // Shuffle the array of images
+        images = images.sort(() => Math.random() - 0.5);
+
+        const main = document.querySelector("main");
+
+        // Create the h3 tag with the prompt
+        const h3 = document.createElement("h3");
+        h3.id = "h";
+        h3.innerText =
+          "Please click on the identical tiles to verify that you are not a robot.";
+        main.appendChild(h3);
+
+        // Create the flex container for the images
+        const imageContainer = document.createElement("div");
+        imageContainer.classList.add("flex");
+        main.appendChild(imageContainer);
+
+        // Create and append images
+        images.forEach((imgClass, index) => {
+          const img = document.createElement("img");
+          img.classList.add(imgClass);
+          img.dataset.index = index;
+          img.addEventListener("click", onImageClick);
+          imageContainer.appendChild(img);
+        });
+
+        // Create reset button (hidden initially)
+        const resetButton = document.createElement("button");
+        resetButton.id = "reset";
+        resetButton.innerText = "Reset";
+        resetButton.style.display = "none";
+        resetButton.addEventListener("click", reset);
+        main.appendChild(resetButton);
+
+        // Create verify button (hidden initially)
+        const verifyButton = document.createElement("button");
+        verifyButton.id = "verify";
+        verifyButton.innerText = "Verify";
+        verifyButton.style.display = "none";
+        verifyButton.addEventListener("click", verifyImages);
+        main.appendChild(verifyButton);
+
+        // Create paragraph for result (hidden initially)
+        const resultPara = document.createElement("p");
+        resultPara.id = "para";
+        main.appendChild(resultPara);
+
+        // Function to handle image click
+        function onImageClick(event) {
+          const clickedImg = event.target;
+
+          // Check if already selected
+          if (clickedImg.classList.contains("selected")) return;
+
+          // Add selected class and store selected image
+          clickedImg.classList.add("selected");
+          selectedImages.push(clickedImg);
+
+          // Show reset button after one click
+          if (selectedImages.length === 1) {
+            resetButton.style.display = "block";
+          }
+
+          // Show verify button after two images selected
+          if (selectedImages.length === 2) {
+            verifyButton.style.display = "block";
+          }
+
+          // Limit selection to two images
+          if (selectedImages.length > 2) {
+            selectedImages = selectedImages.slice(1);
+            document
+              .querySelectorAll("img")
+              .forEach((img) => img.classList.remove("selected"));
+            selectedImages.forEach((img) => img.classList.add("selected"));
+          }
+        }
+
+        // Function to reset the state
+        function reset() {
+          selectedImages = [];
+          document
+            .querySelectorAll("img")
+            .forEach((img) => img.classList.remove("selected"));
+          resetButton.style.display = "none";
+          verifyButton.style.display = "none";
+          resultPara.innerText = "";
+        }
+
+        // Function to verify selected images
+        function verifyImages() {
+          if (selectedImages.length === 2) {
+            const [firstImage, secondImage] = selectedImages;
+            if (firstImage.className === secondImage.className) {
+              resultPara.innerText = "You are a human. Congratulations!";
+            } else {
+              resultPara.innerText =
+                "We can't verify you as a human. You selected the non-identical tiles.";
+            }
+            verifyButton.style.display = "none";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

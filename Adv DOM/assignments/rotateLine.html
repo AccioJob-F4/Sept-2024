@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      /*  your css code here. If applicable */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+      }
+
+      #line {
+        width: 200px;
+        height: 2px;
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: 50% 50%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- the entire body must be written by student -->
+    <div id="line"></div>
+    <script>
+      //your JS code here. If required.
+      const line = document.getElementById("line");
+      let angle = 0;
+
+      function rotateLine() {
+        angle = (angle + 2) % 360; // Increment the angle by 2 degrees and wrap around at 360
+        line.style.transform = `rotate(${angle}deg)`;
+      }
+
+      setInterval(rotateLine, 20); // Rotate every 20 milliseconds
+    </script>
+  </body>
+</html>

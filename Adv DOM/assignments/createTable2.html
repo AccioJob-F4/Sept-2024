@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Create a table</title>
+    <style type="text/css">
+      body {
+        margin: 30px;
+      }
+      /*  your css code here. If applicable */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 30px;
+      }
+
+      table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+
+      input[type="button"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table id="myTable" border="1"></table>
+    <form>
+      <input type="button" onclick="createTable()" value="Create the table" />
+    </form>
+    <script>
+      function createTable() {
+        // Get number of rows from the user
+        let rows = prompt("Input number of rows", 1);
+        // Get number of columns from the user
+        let cols = prompt("Input number of columns", 1);
+
+        // Reference to the table
+        let table = document.getElementById("myTable");
+
+        // Clear the table content before creating a new one
+        table.innerHTML = "";
+
+        // Loop through the number of rows
+        for (let i = 0; i < rows; i++) {
+          // Create a new row
+          let row = table.insertRow(i);
+
+          // Loop through the number of columns
+          for (let j = 0; j < cols; j++) {
+            // Create a new cell
+            let cell = row.insertCell(j);
+
+            // Set the text content of the cell
+            cell.textContent = `Row-${i} Column-${j}`;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
