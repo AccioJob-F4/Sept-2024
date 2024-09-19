@@ -1,0 +1,39 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Working with JSON</h1>
+
+    <button id="parse-btn">Parse the JSON</button>
+    <button id="stringify-btn">Stringify object</button>
+
+    <div id="output"></div>
+
+    <script>
+      const jsonString = '{"name": "divyansh", "age": 25}';
+      const jsonObject = { name: "divyansh", age: 25 };
+
+      document
+        .getElementById("parse-btn")
+        .addEventListener("click", function () {
+          const parsedObject = JSON.parse(jsonString);
+          document.getElementById("output").innerHTML = `<pre>${JSON.stringify(
+            parsedObject
+          )}</pre>`;
+        });
+
+      document
+        .getElementById("stringify-btn")
+        .addEventListener("click", function () {
+          const stringifiedJson = JSON.stringify(jsonObject);
+          document.getElementById(
+            "output"
+          ).innerHTML = `<pre>${stringifiedJson}</pre>`;
+        });
+    </script>
+  </body>
+</html>

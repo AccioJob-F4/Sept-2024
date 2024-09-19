@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remove Color from Dropdown</title>
+    <style>
+      /*  your css code here. If applicable */
+      body {
+        margin: 30px;
+        font-family: Arial, sans-serif;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+      }
+
+      select {
+        margin-bottom: 10px;
+        padding: 5px;
+      }
+
+      input[type="button"] {
+        padding: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Remove Color from Dropdown</h1>
+    <form>
+      <select id="colorSelect">
+        <option>Red</option>
+        <option>Green</option>
+        <option>White</option>
+        <option>Black</option>
+      </select>
+      <input type="button" value="Select and Remove" id="removeButton" />
+    </form>
+
+    <script>
+      //your JS code here. If required.
+      document
+        .getElementById("removeButton")
+        .addEventListener("click", function () {
+          const colorSelect = document.getElementById("colorSelect");
+          const selectedIndex = colorSelect.selectedIndex;
+
+          if (selectedIndex !== -1) {
+            colorSelect.remove(selectedIndex);
+          } else {
+            alert("Please select a color to remove.");
+          }
+        });
+    </script>
+  </body>
+</html>

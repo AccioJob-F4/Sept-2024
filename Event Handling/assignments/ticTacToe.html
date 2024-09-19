@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      /*  your css code here. If applicable */
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      .container {
+        width: 300px;
+        margin: 50px auto;
+      }
+
+      h1 {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        font-size: 2rem;
+      }
+
+      .form {
+        margin-bottom: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin: 10px 0;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows: repeat(3, 100px);
+        gap: 5px;
+        justify-content: center;
+      }
+
+      .cell {
+        background-color: #f4b6c2;
+        border: 1px solid #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      .message {
+        margin: 20px 0;
+        font-size: 1.5rem;
+      }
+
+      .cell.taken {
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- the entire body must be written by student -->
+    <div class="container">
+      <h1>TIC TAC TOE</h1>
+      <div class="form">
+        <label for="player-1">Player 1</label>
+        <input type="text" id="player-1" placeholder="enter name" />
+        <label for="player-2">Player 2</label>
+        <input type="text" id="player-2" placeholder="enter name" />
+        <button id="submit">Start Game</button>
+      </div>
+
+      <div id="game-board" class="hidden">
+        <h1>Tic Tac Toe</h1>
+        <div class="message" id="turn-message"></div>
+        <div class="board">
+          <div id="1" class="cell"></div>
+          <div id="2" class="cell"></div>
+          <div id="3" class="cell"></div>
+          <div id="4" class="cell"></div>
+          <div id="5" class="cell"></div>
+          <div id="6" class="cell"></div>
+          <div id="7" class="cell"></div>
+          <div id="8" class="cell"></div>
+          <div id="9" class="cell"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let player1 = "";
+      let player2 = "";
+      let currentPlayer = "";
+      let gameBoard = Array(9).fill(null);
+      let isGameOver = false;
+
+      // Start game button click event
+      document.getElementById("submit").addEventListener("click", function () {
+        player1 = document.getElementById("player-1").value;
+        player2 = document.getElementById("player-2").value;
+        if (player1 && player2) {
+          document.querySelector(".form").classList.add("hidden");
+          document.getElementById("game-board").classList.remove("hidden");
+          currentPlayer = player1;
+          document.getElementById(
+            "turn-message"
+          ).textContent = `${currentPlayer}, you're up`;
+        }
+      });
+
+      // Cell click event
+      document.querySelectorAll(".cell").forEach((cell) => {
+        cell.addEventListener("click", function () {
+          if (isGameOver) return;
+
+          const cellIndex = this.id - 1;
+          if (!gameBoard[cellIndex]) {
+            gameBoard[cellIndex] = currentPlayer === player1 ? "X" : "O";
+            this.textContent = gameBoard[cellIndex];
+            this.classList.add("taken");
+
+            if (checkWinner()) {
+              document.getElementById(
+                "turn-message"
+              ).textContent = `${currentPlayer}, congratulations you won!`;
+              isGameOver = true;
+            } else if (gameBoard.every((cell) => cell !== null)) {
+              document.getElementById("turn-message").textContent =
+                "It's a draw!";
+              isGameOver = true;
+            } else {
+              currentPlayer = currentPlayer === player1 ? player2 : player1;
+              document.getElementById(
+                "turn-message"
+              ).textContent = `${currentPlayer}, you're up`;
+            }
+          }
+        });
+      });
+
+      // Check for a winner
+      function checkWinner() {
+        const winningCombinations = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+
+        return winningCombinations.some((combination) => {
+          return combination.every((index) => {
+            return gameBoard[index] === (currentPlayer === player1 ? "X" : "O");
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

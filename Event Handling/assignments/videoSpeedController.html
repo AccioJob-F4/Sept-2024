@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video Speed Scrubber</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #2c3e50;
+      }
+
+      .player {
+        max-width: 750px;
+        border: 5px solid #fff;
+        background: #333;
+        padding: 10px;
+        position: relative;
+      }
+
+      .viewer {
+        width: 100%;
+        display: block;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .player__button {
+        background: none;
+        border: 0;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px 10px;
+      }
+
+      .player__slider {
+        width: 100px;
+      }
+
+      .progress {
+        flex: 1;
+        background: #555;
+        cursor: pointer;
+        margin-right: 10px;
+        position: relative;
+        height: 5px;
+      }
+
+      .progress__filled {
+        width: 0;
+        background: #ffc600;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: width 0.1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="player">
+      <video
+        class="viewer"
+        src="https://www.w3schools.com/html/mov_bbb.mp4"
+      ></video>
+
+      <div class="controls">
+        <div class="progress">
+          <div class="progress__filled"></div>
+        </div>
+        <button class="player__button toggle" title="Toggle Play">►</button>
+        <input
+          type="range"
+          name="volume"
+          class="player__slider"
+          min="0"
+          max="1"
+          step="0.05"
+          value="1"
+        />
+        <input
+          type="range"
+          name="playbackRate"
+          class="player__slider"
+          min="0.5"
+          max="2"
+          step="0.1"
+          value="1"
+        />
+        <button data-skip="-10" class="player__button">« 10s</button>
+        <button data-skip="25" class="player__button">25s »</button>
+      </div>
+    </div>
+
+    <script>
+      const player = document.querySelector(".player");
+      const video = player.querySelector(".viewer");
+      const progress = player.querySelector(".progress");
+      const progressBar = player.querySelector(".progress__filled");
+      const toggle = player.querySelector(".toggle");
+      const ranges = player.querySelectorAll(".player__slider");
+      const skipButtons = player.querySelectorAll("[data-skip]");
+
+      // Toggle play/pause
+      function togglePlay() {
+        const method = video.paused ? "play" : "pause";
+        video[method]();
+      }
+
+      // Update play/pause button
+      function updateButton() {
+        const icon = video.paused ? "►" : "❚ ❚";
+        toggle.textContent = icon;
+      }
+
+      // Skip video by specific time
+      function skip() {
+        video.currentTime += parseFloat(this.dataset.skip);
+      }
+
+      // Handle range inputs (volume and playback speed)
+      function handleRangeUpdate() {
+        video[this.name] = this.value;
+      }
+
+      // Update progress bar
+      function handleProgress() {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${percent}%`;
+      }
+
+      // Scrub video to specific time
+      function scrub(e) {
+        const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+        video.currentTime = scrubTime;
+      }
+
+      // Event listeners
+      video.addEventListener("click", togglePlay);
+      video.addEventListener("play", updateButton);
+      video.addEventListener("pause", updateButton);
+      video.addEventListener("timeupdate", handleProgress);
+
+      toggle.addEventListener("click", togglePlay);
+
+      skipButtons.forEach((button) => button.addEventListener("click", skip));
+      ranges.forEach((range) =>
+        range.addEventListener("change", handleRangeUpdate)
+      );
+      ranges.forEach((range) =>
+        range.addEventListener("mousemove", handleRangeUpdate)
+      );
+
+      let mousedown = false;
+      progress.addEventListener("click", scrub);
+      progress.addEventListener("mousemove", (e) => mousedown && scrub(e));
+      progress.addEventListener("mousedown", () => (mousedown = true));
+      progress.addEventListener("mouseup", () => (mousedown = false));
+    </script>
+  </body>
+</html>
