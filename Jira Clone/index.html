@@ -1,0 +1,68 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JIRA Clone</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Projects</h2>
+
+      <ul>
+        <li><a href="#">Project 1</a></li>
+        <li><a href="#">Project 2</a></li>
+      </ul>
+
+      <button id="create-board-btn">Create New Board</button>
+    </div>
+
+    <div class="main">
+      <div class="board-header">
+        <h1>Project 1</h1>
+        <button id="create-task-btn">Create New Task</button>
+      </div>
+
+      <div class="board-container">
+        <div class="column" name="todo" id="todo">
+          <h3>To Do</h3>
+          <div class="task-list"></div>
+        </div>
+
+        <div class="column" id="in-progress">
+          <h3>In Progress</h3>
+          <div class="task-list"></div>
+        </div>
+
+        <div class="column" id="done">
+          <h3>Done</h3>
+          <div class="task-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="task-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <h2>Create Task</h2>
+
+        <form id="task-form">
+          <input
+            type="text"
+            id="task-title"
+            placeholder="Task Title"
+            required
+          />
+
+          <textarea id="task-desc" placeholder="Task Description"></textarea>
+
+          <button type="submit">Create Task</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
